@@ -1,10 +1,13 @@
-ï»¿package cn.edu.bjtu.weibo.controller;
+package cn.edu.bjtu.weibo.controller;
 
 import javax.servlet.http.*;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -14,54 +17,22 @@ public class MainPageController {
 		
 	}
 	
-	private LoginService loginService;
 	
-	//ç‚¹å‡»æœç´¢å¾®åšè·³è½¬
-	@RequestMapping("/{param}/")
+	@RequestMapping("index")
     @ResponseBody
-    public String checkDate(@PathVariable String param){
-        if(StringUtils.isBlank(param)){
-            return mainpageResult.build(500,"å‚æ•°ä¸ºç©º");
-        }else{
-            return mainpageResult.ok(param);
-        }
+    public ModelAndView index(){
+        //·µ»Øµ½Ê×Ò³Ò³Ãæ
+		ModelAndView mav = new ModelAndView("MainPage");
+		return mav;
     }
 	
-	//ç‚¹å‡»çƒ­é—¨è¯é¢˜è·³è½¬
-	 @RequestMapping("movie")
-	    public String showHot(){
-	        return "Hot";
-	    }
 	 
-	 //ç‚¹å‡»ç™»å½•è·³è½¬
-	    @RequestMapping("value=/login",method=RequestMeth.POST)
-	    public mainpageResult login(String username, String password, HttpServletRequest request, HttpServletResponse response){
-	        try {
-	            mainpageResult result = loginService.login(username, password, request, response);
-	            return result;
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            return mainpageResult.build(500, ExceptionUtil.getStackTrace(e));
-	        }
-	    }
+	//µã»÷ÓÃ»§Ê±£¬Ìø×ªµ½ÓÃ»§×Ô¼ºµÄÖ÷Ò³
+	@RequestMapping("/resp")
+	public void handleRequest(HttpServletRequest req,HttpServletResponse resp) throws Exception{
+	        
+		resp.sendRedirect("UserMainPage.jsp");
+	}
 	    
-	    //ç‚¹å‡»æ³¨å†Œè·³è½¬
-	    @RequestMapping(value="/register", method=RequestMethod.POST)
-	    @ResponseBody
-	    public mainpageResult register(User user){
-	        try {
-	            mainpageResult result = registerService.register(user);
-	            return result;
-	        } catch (Exception e) {
-	            // TODO Auto-generated catch block
-	            e.printStackTrace();
-	            return mainpageResult.build(500, ExceptionUtil.getStackTrace(e));
-	        }
-	    }
-	    
-	    //ç‚¹å‡»å¾®åšè·³è½¬
-	    @RequestMapping("detail")
-	    public String showDetail(){
-	        return "detail";
-	    }
+	
 }
