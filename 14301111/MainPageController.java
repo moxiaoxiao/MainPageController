@@ -1,4 +1,4 @@
-package com.mvc.controller;
+﻿package cn.edu.bjtu.weibo.controller;
 
 import javax.servlet.http.*;
 
@@ -16,7 +16,7 @@ public class MainPageController {
 	
 	private LoginService loginService;
 	
-	//General Search
+	//点击搜索微博跳转
 	@RequestMapping("/{param}/")
     @ResponseBody
     public String checkDate(@PathVariable String param){
@@ -27,13 +27,13 @@ public class MainPageController {
         }
     }
 	
-	//Hot topic
+	//点击热门话题跳转
 	 @RequestMapping("movie")
 	    public String showHot(){
 	        return "Hot";
 	    }
 	 
-	 //LoginService
+	 //点击登录跳转
 	    @RequestMapping("value=/login",method=RequestMeth.POST)
 	    public mainpageResult login(String username, String password, HttpServletRequest request, HttpServletResponse response){
 	        try {
@@ -45,7 +45,7 @@ public class MainPageController {
 	        }
 	    }
 	    
-	    //register service
+	    //点击注册跳转
 	    @RequestMapping(value="/register", method=RequestMethod.POST)
 	    @ResponseBody
 	    public mainpageResult register(User user){
@@ -59,7 +59,7 @@ public class MainPageController {
 	        }
 	    }
 	    
-	    //weiboDetail service
+	    //点击微博跳转
 	    @RequestMapping("detail")
 	    public String showDetail(){
 	        return "detail";
